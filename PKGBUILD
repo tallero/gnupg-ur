@@ -8,7 +8,7 @@
 
 pkgname=gnupg
 pkgver=2.4.5
-pkgrel=3
+pkgrel=4
 pkgdesc='Complete and free implementation of the OpenPGP standard'
 arch=(x86_64)
 url='https://www.gnupg.org/'
@@ -27,7 +27,6 @@ license=(
 depends=(
   glibc
   gnutls
-  libassuan
   libgcrypt
   libgpg-error
   libksba
@@ -41,8 +40,9 @@ depends=(
 )
 makedepends=(
   bzip2
-  pcsclite
+  libassuan
   npth
+  pcsclite
   readline
 )
 checkdepends=(openssh)
@@ -165,6 +165,7 @@ check() {
 package() {
   depends+=(
     bzip2 libbz2.so
+    libassuan libassuan.so
     npth libnpth.so
     readline libreadline.so
   )
