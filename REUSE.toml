@@ -46,8 +46,8 @@ path = [
     "0021-Add-keyboxd-systemd-support.patch",
     "0022-Support-large-RSA-keygen-in-non-batch-mode.patch",
     "0023-gpg-Verify-Text-mode-Signatures-over-binary-Literal-.patch",
+    "0024-gpg-Do-not-use-a-default-when-asking-for-another-out.patch",
     "gnupg-2.4-avoid_beta_warning.patch",
-    "gnupg-2.4.8-fix-gpg-agent-memory-leak.patch",
     "keyboxd.8",
 ]
 SPDX-FileCopyrightText = "freepg/gnupg contributors"

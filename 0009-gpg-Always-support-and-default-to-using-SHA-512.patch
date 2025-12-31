@@ -1,4 +1,4 @@
-From 8400432a857ab9590452ffdfbccf1cfbac1c685f Mon Sep 17 00:00:00 2001
+From b15eba73a45a8261a7f6992154b9f8429d34c616 Mon Sep 17 00:00:00 2001
 From: Daniel Kahn Gillmor <dkg@fifthhorseman.net>
 Date: Wed, 5 Feb 2025 18:03:42 -0500
 Subject: [PATCH] gpg: Always support and default to using SHA-512.
@@ -28,7 +28,7 @@ Signed-off-by: Daniel Kahn Gillmor <dkg@fifthhorseman.net>
  3 files changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/configure.ac b/configure.ac
-index 64ba0dcdf..959e7f9f7 100644
+index 94bc80583..b0b1cfc5e 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -339,7 +339,7 @@ GNUPG_GPG_DISABLE_ALGO([rmd160],[RIPE-MD160 hash])

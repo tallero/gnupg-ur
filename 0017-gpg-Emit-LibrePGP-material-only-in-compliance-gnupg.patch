@@ -1,4 +1,4 @@
-From 399173d84d4790bcd5848fe42a9e5ada64f5e4ae Mon Sep 17 00:00:00 2001
+From 08b9a243d573ee1d06daeb4f3a5f598712651bc0 Mon Sep 17 00:00:00 2001
 From: Daniel Kahn Gillmor <dkg@fifthhorseman.net>
 Date: Tue, 4 Feb 2025 02:56:36 -0500
 Subject: [PATCH] gpg: Emit LibrePGP material only in --compliance=gnupg
