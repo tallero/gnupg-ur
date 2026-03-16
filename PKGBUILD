@@ -47,6 +47,15 @@
 _os="$(
   uname \
     -o)"
+if [[ "${_os}" == "Android" ]]; then
+  _libc="ndk-sysroot"
+  _compiler="clang"
+  _libcompiler="llvm-libs"
+elif [[ "${_os}" == "GNU/Linux" ]]; then
+  _libc="glibc"
+  _compiler="gcc"
+  _libcompiler="libgcc"
+fi
 _evmfs_available="$(
   command \
     -v \
@@ -116,10 +125,11 @@ license=(
   "Unicode-TOU"
 )
 depends=(
-  "glibc"
+  "${_libc}"
   "gnutls"
   "libgcrypt"
   "libgpg-error"
+  "${_libcompiler}"
   "libksba"
   "libldap"
   "libusb"
@@ -132,14 +142,27 @@ depends=(
 makedepends=(
   "bzip2"
   "fig2dev"
-  "git"
   "imagemagick"
   "libassuan"
   "librsvg"
   "npth"
   "pcsclite"
   "readline"
+  # part of base-devel
+  "gettext"
+  "${_compiler}"
+  "${_libcompiler}"
 )
+if [[ "${_git}" == "true" ]]; then
+  makedepends+=(
+    "git" 
+  )
+fi
+if [[ "${_evmfs}" == "true" ]]; then
+  makedepends+=(
+    "evmfs" 
+  )
+fi
 checkdepends=(
   "openssh"
 )
