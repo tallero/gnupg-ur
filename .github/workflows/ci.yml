@@ -261,7 +261,7 @@ jobs:
               -rf \
               "${HOME}/fur"
       - name:
-          Installs latest stable Fur.
+          Downloads latest stable Fur.
         run: |
           /entrypoint.sh \
             git \
@@ -629,6 +629,25 @@ jobs:
           #   pip \
           #     install \
           #     "meson"
+          #
+      - name:
+          Installs latest stable Fur.
+        run: |
+          /entrypoint.sh \
+            git \
+              clone \
+                --branch="main" \
+                --single-branch \
+                --depth=1 \
+                "https://github.com/themartiancompany/fur" \
+                "${HOME}/fur-src" || \
+            true
+          cd \
+            "fur-src"
+          /entrypoint.sh \
+            make \
+              PREFIX="/usr" \
+              install 
       - name:
           Installs build dependencies.
         run: |
@@ -650,7 +669,9 @@ jobs:
               "${HOME}/fur-src/fur/fur" \
                 -v \
                 -t \
-                  "tree" \
+                  "ci" \
+                -m \
+                  "github" \
                 -p \
                   "pacman" \
                 "libassuan"

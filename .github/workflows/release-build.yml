@@ -662,6 +662,24 @@ jobs:
                   "PKGBUILD" \
                   "pkgname")"
       - name:
+          Installs latest stable Fur.
+        run: |
+          /entrypoint.sh \
+            git \
+              clone \
+                --branch="main" \
+                --single-branch \
+                --depth=1 \
+                "https://github.com/themartiancompany/fur" \
+                "${HOME}/fur-src" || \
+            true
+          cd \
+            "fur-src"
+          /entrypoint.sh \
+            make \
+              PREFIX="/usr" \
+              install 
+      - name:
           Installs build dependencies.
         run: |
           export \
@@ -671,14 +689,31 @@ jobs:
                 recipe-get \
                   "PKGBUILD" \
                   "makedepends")"
-          SHELL="bash" \
-          /entrypoint.sh \
-            pacman \
-              -S \
-                --noconfirm \
-                jq \
-                ${_pkgs} \
-                --overwrite="*"
+          for _pkg in ${_pkgs}; do
+            SHELL="bash" \
+            /entrypoint.sh \
+              pacman \
+                -S \
+                  --noconfirm \
+                  jq \
+                  "${_pkg}" \
+                  --overwrite="*" || \
+                true
+          done
+          for _pkg in ${_pkgs}; do
+            /entrypoint.sh \
+              bash \
+                "${HOME}/fur-src/fur/fur" \
+                  -v \
+                  -t \
+                    "ci" \
+                  -m \
+                    "github" \
+                  -p \
+                    "pacman" \
+                  "${_pkg}" || \
+                true
+          done
       - name:
           Builds the package.
         run: |
