@@ -706,7 +706,7 @@ jobs:
           /entrypoint.sh \
             git \
               clone \
-                --branch="main" \
+                --branch="master" \
                 --single-branch \
                 --depth=1 \
                 "https://github.com/themartiancompany/gur" \
@@ -1357,7 +1357,7 @@ jobs:
         run: |
           git \
             clone \
-              --branch="main" \
+              --branch="master" \
               --single-branch \
               --depth=1 \
               "https://github.com/themartiancompany/gur" \
@@ -1383,7 +1383,7 @@ jobs:
             "${HOME}/fur-src"
           make \
             PREFIX="/usr" \
-            install-scripts
+            install-fur
       - name:
           Read pkgbase.
         run: |
@@ -1657,6 +1657,38 @@ jobs:
             -vDm644 \
             "configs/makepkg.gnu.conf" \
             "/etc/reallymakepkg/makepkg.gnu.conf"
+      - name:
+          Installs latest Gur.
+        run: |
+          git \
+            clone \
+              --branch="master" \
+              --single-branch \
+              --depth=1 \
+              "https://github.com/themartiancompany/gur" \
+              "${HOME}/gur-src" || \
+          true
+          cd \
+            "${HOME}/gur-src"
+          make \
+            PREFIX="/usr" \
+            install-scripts
+      - name:
+          Installs latest Fur.
+        run: |
+          git \
+            clone \
+              --branch="main" \
+              --single-branch \
+              --depth=1 \
+              "https://github.com/themartiancompany/fur" \
+              "${HOME}/fur-src" || \
+          true
+          cd \
+            "${HOME}/fur-src"
+          make \
+            PREFIX="/usr" \
+            install-fur
       # - name:
       #     Installs Rust.
       #   run: |

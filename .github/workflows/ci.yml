@@ -655,6 +655,26 @@ jobs:
                 "reallymakepkg-src" \
               install-scripts
       - name:
+          Installs latest Gur.
+        run: |
+          /entrypoint.sh \
+            git \
+              clone \
+                --branch="master" \
+                --single-branch \
+                --depth=1 \
+                "https://github.com/themartiancompany/gur" \
+                "${HOME}/gur-src" || \
+            true
+          cd \
+            "${HOME}/gur-src"
+          /entrypoint.sh \
+            make \
+              -C \
+                "${HOME}/gur-src" \
+              PREFIX="/usr" \
+              install-scripts
+      - name:
           Installs latest Fur.
         run: |
           /entrypoint.sh \
@@ -1296,6 +1316,22 @@ jobs:
               "${HOME}/reallymakepkg-src" \
             install
       - name:
+          Installs latest Gur.
+        run: |
+          git \
+            clone \
+              --branch="master" \
+              --single-branch \
+              --depth=1 \
+              "https://github.com/themartiancompany/gur" \
+              "${HOME}/gur-src" || \
+            true
+          make \
+            -C \
+              "${HOME}/gur-src" \
+            PREFIX="/usr" \
+            install-scripts
+      - name:
           Installs latest Fur.
         run: |
           git \
@@ -1535,6 +1571,22 @@ jobs:
             -C \
               "${HOME}/reallymakepkg-src" \
             install
+      - name:
+          Installs latest Gur.
+        run: |
+          git \
+            clone \
+              --branch="master" \
+              --single-branch \
+              --depth=1 \
+              "https://github.com/themartiancompany/gur" \
+              "${HOME}/gur-src" || \
+          true
+          cd \
+            "${HOME}/gur-src"
+          make \
+            PREFIX="/usr" \
+            install-scripts
       - name:
           Installs latest Fur.
         run: |
