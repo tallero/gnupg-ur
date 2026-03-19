@@ -1353,6 +1353,22 @@ jobs:
             "user:user" \
             "$(pwd)"
       - name:
+          Installs latest Reallymakepkg.
+        run: |
+          git \
+            clone \
+              --branch="main" \
+              --single-branch \
+              --depth=1 \
+              "https://github.com/themartiancompany/reallymakepkg" \
+              "${HOME}/reallymakepkg-src" || \
+          true
+          make \
+            -C \
+              "${HOME}/reallymakepkg-src"
+            PREFIX="/usr" \
+            install-scripts
+      - name:
           Installs latest Gur.
         run: |
           git \
@@ -1642,7 +1658,7 @@ jobs:
             PREFIX="/usr" \
             install
       - name:
-          Gets recipe-get.
+          Install latest Reallymakepkg.
         run: |
           git \
             clone \
