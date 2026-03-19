@@ -727,17 +727,16 @@ jobs:
           done
           for _pkg in ${_pkgs}; do
             /entrypoint.sh \
-              bash \
-                "${HOME}/fur-src/fur/fur" \
-                  -v \
-                  -t \
-                    "ci" \
-                  -m \
-                    "github" \
-                  -p \
-                    "pacman" \
-                  "${_pkg}" || \
-                true
+              fur \
+                -v \
+                -t \
+                  "ci" \
+                -m \
+                  "github" \
+                -p \
+                  "pacman" \
+                "${_pkg}" || \
+              true
           done
       - name:
           Builds the package.
@@ -831,9 +830,9 @@ jobs:
             ${{ github.event.release.upload_url }}
             # ${{ steps.create_release.outputs.upload_url }}
           asset_path:
-            "gur-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "gnupg-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_name:
-            "gur-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "gnupg-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
   arch_release:
@@ -1403,9 +1402,9 @@ jobs:
             ${{ github.event.release.upload_url }}
             # ${{ steps.create_release.outputs.upload_url }}
           asset_path:
-            "gur-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "gnupg-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_name:
-            "dogeos-gnu-gur-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "dogeos-gnu-gnupg-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
   msys2_release:
@@ -1704,9 +1703,9 @@ jobs:
             ${{ github.event.release.upload_url }}
             # ${{ steps.create_release.outputs.upload_url }}
           asset_path:
-            "gur-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "gnupg-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_name:
-            "dogeos-windows-gur-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
+            "dogeos-windows-gnupg-${{ steps.version.outputs.version }}-any.pkg.tar.xz"
           asset_content_type:
             application/gzip
 
