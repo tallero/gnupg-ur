@@ -1816,7 +1816,7 @@ jobs:
                 " " \
               "PKGBUILD" \
               "makedepends" > \
-            "${HOME}/makedepends"
+            "${HOME}/makedepends"; \
           # ( _evmfs="false" \
           #     recipe-get \
           #       -o \
@@ -1827,12 +1827,12 @@ jobs:
           #       "makedepends" > \
           #   "${HOME}/makedepends"
           for _pkg in $(cat "${HOME}/makedepends"); do \
-            _mingw_name="mingw-w64-${{ matrix.env }}-${_pkg}"
+            _mingw_name="mingw-w64-${{ matrix.env }}-${_pkg}"; \
             export \
-              _pkgs_mingw="${_pkgs_mingw} ${_mingw_name}"
+              _pkgs_mingw="${_pkgs_mingw} ${_mingw_name}"; \
             echo \
               "${_mingw_name}" >> \
-              "${HOME}/makedepends-mingw"
+              "${HOME}/makedepends-mingw"; \
           done
           done
           for _pkg in $(cat "${HOME}/makedepends"); do \
@@ -1869,9 +1869,9 @@ jobs:
             _depend_name="$( \
                 version-split \
                   "${_pkg}" \
-                  "name")"
+                  "name")"; \
             echo \
-              "Installing '${_depend_name}' with fur."
+              "Installing '${_depend_name}' with fur."; \
               fur \
                 -v \
                 -t \
@@ -1881,7 +1881,7 @@ jobs:
                 -p \
                   "pacman" \
                 "${_depend_name}" || \
-              true
+              true; \
           done
       - name:
           Builds the Windows package.
