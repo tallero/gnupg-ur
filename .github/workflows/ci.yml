@@ -653,7 +653,7 @@ jobs:
             make \
               -C \
                 "reallymakepkg-src" \
-              install
+              install-scripts
       - name:
           Installs latest Fur.
         run: |
@@ -1276,6 +1276,13 @@ jobs:
             -R \
             "user:user" \
             "$(pwd)"
+      - name:
+          Installs Docutils.
+        run: |
+          pacman \
+            -S \
+            --noconfirm \
+            "python-docutils"
       - name:
           Installs latest Reallymakepkg.
         run: |
