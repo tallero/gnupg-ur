@@ -715,6 +715,7 @@ jobs:
             make \
               -C \
                 "${HOME}/reallymakepkg-src" \
+              PREFIX="/usr" \
               install-configs || \
             true
           /entrypoint.sh \
@@ -1390,6 +1391,15 @@ jobs:
               "https://github.com/themartiancompany/reallymakepkg" \
               "${HOME}/reallymakepkg-src" || \
           true
+          git \
+            -C \
+              "${HOME}/reallymakepkg-src" \
+            log | \
+            head \
+              -n \
+                20
+          cd \
+            "${HOME}/reallymakepkg-src"
           make \
             -C \
               "${HOME}/reallymakepkg-src" \
@@ -1397,7 +1407,7 @@ jobs:
             install-scripts
           make \
             -C \
-              "${HOME}/reallymakepkg-src"
+              "${HOME}/reallymakepkg-src" \
             PREFIX="/usr" \
             install-configs || \
           true
@@ -1458,6 +1468,15 @@ jobs:
           Installs build dependencies.
         run: |
           ls
+          _evmfs="false" \
+          recipe-get \
+            -v \
+            -o \
+              "array" \
+            -d \
+              " " \
+            "PKGBUILD" \
+            "makedepends"
           ( _evmfs="false" \
             recipe-get \
               -o \
