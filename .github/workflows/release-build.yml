@@ -129,7 +129,7 @@ jobs:
           chown \
             -R \
             "1000:1000" \
-            "$(pwd)"
+            "${PWD}"
       - name:
           Setup user's home.
         run: |
@@ -673,14 +673,14 @@ jobs:
           Read pkgbase.
         run: |
           export \
-            _pkgbase="$(
+            _pkgbase="$( \
               _evmfs="false" \
               /entrypoint.sh \
                 recipe-get \
                   "PKGBUILD" \
                   "pkgbase")"
           export \
-            _pkgname="$(
+            _pkgname="$( \
               _evmfs="false" \
               /entrypoint.sh \
                 recipe-get \
@@ -757,14 +757,14 @@ jobs:
           Installs build dependencies.
         run: |
           export \
-            _pkgs="$(
+            _pkgs="$( \
               _evmfs="false" \
               /entrypoint.sh \
                 recipe-get \
                   "PKGBUILD" \
                   "makedepends")"
           for _pkg in ${_pkgs}; do
-            _depend_name="$(
+            _depend_name="$( \
               /entrypoint.sh \
                 version-split \
                   "${_pkg}" \
@@ -780,7 +780,7 @@ jobs:
                 true
           done
           for _pkg in ${_pkgs}; do
-            _depend_name="$(
+            _depend_name="$( \
               /entrypoint.sh \
                 version-split \
                   "${_pkg}" \
@@ -827,7 +827,7 @@ jobs:
             echo \
               "Home: ${HOME}"
           find \
-            "$(pwd)" \
+            "${PWD}" \
             -iname \
               "*.pkg.tar.*"
       # - name:
@@ -850,7 +850,7 @@ jobs:
       #         -Udd \
       #         --noconfirm \
       #         $(find \
-      #             "$(pwd)" \
+      #             "${PWD}" \
       #             -iname \
       #               "*.pkg.tar.*")
       - name:
@@ -988,10 +988,10 @@ jobs:
             "%s\n" \
             "ID: '$(id)'." \
             "Home: '${HOME}'." \
-            "Current directory: '$(pwd)'." \
-            "Contents of the directory '$(pwd)':"
+            "Current directory: '${PWD}'." \
+            "Contents of the directory '${PWD}':"
           ls \
-            "$(pwd)"
+            "${PWD}"
           tree \
             -L \
               2 \
@@ -1368,7 +1368,7 @@ jobs:
           chown \
             -R \
             "user:user" \
-            "$(pwd)"
+            "${PWD}"
       - name:
           Installs latest Reallymakepkg.
         run: |
@@ -1431,14 +1431,14 @@ jobs:
           Read pkgbase.
         run: |
           export \
-            _pkgbase="$(
+            _pkgbase="$( \
               _evmfs="false" \
               /entrypoint.sh \
               recipe-get \
                 "PKGBUILD" \
                 "pkgbase")"
           export \
-            _pkgname="$(
+            _pkgname="$( \
               _evmfs="false" \
               /entrypoint.sh \
               recipe-get \
@@ -1454,7 +1454,7 @@ jobs:
               "PKGBUILD" \
               "makedepends"
           export \
-            _pkgs="$(
+            _pkgs="$( \
               _evmfs="false" \
               recipe-get \
                 "PKGBUILD" \
@@ -1467,7 +1467,7 @@ jobs:
               -v \
               "${_pkg}" \
               "name")
-            _depend_name="$(
+            _depend_name="$( \
                 version-split \
                   "${_pkg}" \
                   "name")"
@@ -1482,7 +1482,7 @@ jobs:
               true
           done
           for _pkg in ${_pkgs}; do
-            _depend_name="$(
+            _depend_name="$( \
                 version-split \
                   "${_pkg}" \
                   "name")"
@@ -1503,13 +1503,13 @@ jobs:
           Builds the Arch package.
         run: |
           export \
-            _pkgbase="$(
+            _pkgbase="$( \
               recipe-get \
                 "PKGBUILD" \
                 "pkgbase")"
           su \
             -c \
-              "cd $(pwd) && _evmfs="false" _git_service="github" reallymakepkg -v -u -w '/home/user/${_pkgbase}-build' -- -df --nocheck --skippgpcheck" - \
+              "cd ${PWD} && _evmfs="false" _git_service="github" reallymakepkg -v -u -w '/home/user/${_pkgbase}-build' -- -df --nocheck --skippgpcheck" - \
             "user"
       # - name:
       #     Installs the package.
@@ -1528,7 +1528,7 @@ jobs:
       #       -Udd \
       #       --noconfirm \
       #       $(find \
-      #           "$(pwd)" \
+      #           "${PWD}" \
       #           -iname \
       #             "*.pkg.tar.*")
       - name:
@@ -1785,7 +1785,7 @@ jobs:
           done
           done
           for _pkg in ${_pkgs}; do
-            _depend_name="$(
+            _depend_name="$( \
                 version-split \
                   "${_pkg}" \
                   "name")"
@@ -1800,7 +1800,7 @@ jobs:
               true
           done
           for _pkg in ${_pkgs_mingw}; do
-            _depend_name="$(
+            _depend_name="$( \
                 version-split \
                   "${_pkg}" \
                   "name")"
@@ -1815,7 +1815,7 @@ jobs:
               true
           done
           for _pkg in ${_pkgs}; do
-            _depend_name="$(
+            _depend_name="$( \
                 version-split \
                   "${_pkg}" \
                   "name")"
@@ -1873,7 +1873,7 @@ jobs:
           #   --nocheck \
           #   --skippgpcheck
           find \
-            "$(pwd)" \
+            "${PWD}" \
             -iname \
               "*.pkg.tar.*"
       # - name:
@@ -1896,7 +1896,7 @@ jobs:
       #       --noconfirm \
       #       --overwrite="*" \
       #       $(find \
-      #           "$(pwd)" \
+      #           "${PWD}" \
       #           -iname \
       #             "*.pkg.tar.*")
       - name:
