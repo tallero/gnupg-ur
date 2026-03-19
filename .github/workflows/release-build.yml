@@ -693,29 +693,30 @@ jobs:
             git \
               clone \
                 "https://github.com/themartiancompany/reallymakepkg" \
-                "reallymakepkg-src" || \
+                "${HOME}/reallymakepkg-src" || \
               true
           /entrypoint.sh \
             make \
+              PREFIX="/usr" \
               -C \
-                "reallymakepkg-src" \
+                "${HOME}/reallymakepkg-src" \
               install-scripts
           /entrypoint.sh \
             make \
               -C \
-                "reallymakepkg-src" \
+                "${HOME}/reallymakepkg-src" \
               install-scripts
           /entrypoint.sh \
             make \
               -C \
-                "reallymakepkg-src" \
+                "${HOME}/reallymakepkg-src" \
               install-configs || \
             true
           /entrypoint.sh \
             install \
               -vDm644 \
-              "configs/makepkg.gnu.conf" \
-              "/data/data/com.termux/files/usr/etc/reallymakepkg/makepkg.gnu.conf"
+              "${HOME}/reallymakepkg-src/configs/makepkg.android.conf" \
+              "/data/data/com.termux/files/usr/etc/reallymakepkg/makepkg.android.conf"
       - name:
           Installs latest Gur.
         run: |
@@ -1381,7 +1382,7 @@ jobs:
           true
           make \
             -C \
-              "${HOME}/reallymakepkg-src"
+              "${HOME}/reallymakepkg-src" \
             PREFIX="/usr" \
             install-scripts
           make \
@@ -1392,7 +1393,7 @@ jobs:
             true
           install \
             -vDm644 \
-            "configs/makepkg.gnu.conf" \
+            "${HOME}/reallymakepkg-src/configs/makepkg.gnu.conf" \
             "/etc/reallymakepkg/makepkg.gnu.conf"
       - name:
           Installs latest Gur.
@@ -1405,9 +1406,9 @@ jobs:
               "https://github.com/themartiancompany/gur" \
               "${HOME}/gur-src" || \
           true
-          cd \
-            "${HOME}/gur-src"
           make \
+            -C \
+              "${HOME}/gur-src" \
             PREFIX="/usr" \
             install-scripts
       - name:
@@ -1701,7 +1702,7 @@ jobs:
             install-scripts
           install \
             -vDm644 \
-            "configs/makepkg.gnu.conf" \
+            "${HOME}/reallymakepkg-src/configs/makepkg.gnu.conf" \
             "/etc/reallymakepkg/makepkg.gnu.conf"
       - name:
           Installs latest Gur.
@@ -1714,10 +1715,10 @@ jobs:
               "https://github.com/themartiancompany/gur" \
               "${HOME}/gur-src" || \
           true
-          cd \
-            "${HOME}/gur-src"
           make \
             PREFIX="/usr" \
+            -C \
+              "${HOME}/gur-src" \
             install-scripts
       - name:
           Installs latest Fur.
