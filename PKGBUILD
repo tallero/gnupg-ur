@@ -50,15 +50,22 @@ if [[ "${_os}" == "Android" ]]; then
   _libc="ndk-sysroot"
   _compiler="clang"
   _libcompiler="llvm-libs"
+  _npth="libnpth"
+  _pcsclite="libpcsclite"
 elif [[ "${_os}" == "GNU/Linux" ]]; then
   _libc="glibc"
   _compiler="gcc"
   _libcompiler="libgcc"
+  _npth="npth"
+  _pcsclite="pcsclite"
 elif [[ "${_os}" == "Msys" ]]; then
   _libc="msys2-w32api-runtime"
   _libc_headers="msys2-w32api-headers"
   _compiler="gcc"
   _libcompiler="gcc-libs"
+  _npth="npth"
+  _pcsclite="pcsclite"
+  _pcsclite="pcsclite"
   _sh="sh"
 else
   _msg=(
@@ -70,6 +77,9 @@ else
   _libc_headers="msys2-w32api-headers"
   _compiler="gcc"
   _libcompiler="gcc-libs"
+  _npth="npth"
+  _pcsclite="pcsclite"
+  _pcsclite="pcsclite"
   _sh="sh"
 fi
 _evmfs_available="$(
@@ -137,7 +147,7 @@ _2_5_18_commit="1b8362889a522bbcfeb80ef3af61218db216f62b"
 _2_5_18_freepg_commit="756502e158cc2742a956333997037f72ee5ff40f"
 _commit="${_2_5_18_freepg_commit}"
 _libassuan_pkgver="3.0.2"
-pkgrel=46
+pkgrel=47
 _pkgdesc=(
   'Complete and free implementation'
   'of the OpenPGP standard.'
@@ -189,7 +199,7 @@ makedepends=(
   "libassuan>=${_libassuan_pkgver}"
   "librsvg"
   "npth"
-  "pcsclite"
+  "${_pcsclite}"
   "readline"
   # part of base-devel
   "gettext"
