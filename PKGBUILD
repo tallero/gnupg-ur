@@ -137,7 +137,7 @@ _2_5_18_commit="1b8362889a522bbcfeb80ef3af61218db216f62b"
 _2_5_18_freepg_commit="756502e158cc2742a956333997037f72ee5ff40f"
 _commit="${_2_5_18_freepg_commit}"
 _libassuan_pkgver="3.0.2"
-pkgrel=44
+pkgrel=45
 _pkgdesc=(
   'Complete and free implementation'
   'of the OpenPGP standard.'
@@ -146,8 +146,12 @@ pkgdesc="${_pkgdesc[*]}"
 arch=(
   "aarch64"
   "arm"
+  "armv8l"
+  "armv7l"
   "i686"
   "mips"
+  "pentium4"
+  "powerpc"
   "x86_64"
 )
 url="https://www.${_pkg}.org"

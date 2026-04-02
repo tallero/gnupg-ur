@@ -2234,8 +2234,25 @@ jobs:
       - name:
           Builds the Windows package.
         run: |
+          mkdir \
+            "temp"
+          cp \
+            * \
+            "temp"
           dos2unix \
             "PKGBUILD"
+          cp \
+            "PKGBUILD" \
+            "PKBUILD.windows"
+          cp \
+            "temp/"* \
+            "."
+          mv \
+            "PKGBUILD.windows" \
+            "PKGBUILD"
+          rm \
+            -r \
+            "temp"
           # export \
           #   _pkgbase="$( \
           #     recipe-get \
