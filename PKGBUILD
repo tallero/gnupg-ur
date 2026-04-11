@@ -252,29 +252,31 @@ _gitlab_sum="SKIP"
 _gitlab_sig_sum="SKIP"
 _github_sum="c39042db96a85b64834c479e69a6f3481e92a44b0dde756634a231fbbb4a99e6"
 _github_sig_sum="0f2a92ea1f158233a6b1562e9caec66ad91eaa446b03ecaa235d911c4c8774ef"
-_bundle_sum="SKIP"
-_bundle_sig_sum="SKIP"
+_bundle_sum="712afbfbcca4c9ee8592eba482fe4fc40ff62557e80080bc53b3377cfee8e9fd"
+_bundle_sig_sum="7e42d6954ebdd6e106e3cc1bb32902ca42a8a9de5ea089fca849426832577da1"
+# that crazy kid address
+_kid_ns="0x926acb6aA4790ff678848A9F1C59E578B148C786"
 # Dvorak
-_evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
+_dvorak_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
 if [[ "${_evmfs}" == "true" ]]; then
   if [[ "${_git}" == "true" ]]; then
     _sum="${_bundle_sum}"
     _sig_sum="${_bundle_sig_sum}"
     # Tallero
-    _evmfs_ns="0x6ec7cC56dCeC0a00CB15E97C64B1a5Ec7A31403c"
+    # _evmfs_ns="0x6ec7cC56dCeC0a00CB15E97C64B1a5Ec7A31403c"
   elif [[ "${_git}" == "false" ]]; then
     if [[ "${_git_service}" == "github" ]]; then
       _sum="${_github_sum}"
       _sig_sum="${_github_sig_sum}"
       # Dvorak
-      _evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
+      # _evmfs_ns="0x87003Bd6C074C713783df04f36517451fF34CBEf"
       # Truocolo
-      _evmfs_ns="0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b"
+      # _evmfs_ns="0x6E5163fC4BFc1511Dbe06bB605cc14a3e462332b"
     elif [[ "${_git_service}" == "gitlab" ]]; then
       _sum="${_gitlab_sum}"
       _sig_sum="${_gitlab_sig_sum}"
       # Tallero
-      _evmfs_ns="0x6ec7cC56dCeC0a00CB15E97C64B1a5Ec7A31403c"
+      # _evmfs_ns="0x6ec7cC56dCeC0a00CB15E97C64B1a5Ec7A31403c"
     fi
   fi
 elif [[ "${_evmfs}" == "false" ]]; then
@@ -302,6 +304,8 @@ elif [[ "${_evmfs}" == "false" ]]; then
     fi
   fi
 fi
+_evmfs_ns="${_kid_ns}"
+_evmfs_sig_ns="${_dvorak_ns}"
 _evmfs_network="100"
 _evmfs_address="0x69470b18f8b8b5f92b48f6199dcb147b4be96571"
 _evmfs_dir="evmfs://${_evmfs_network}/${_evmfs_address}/${_evmfs_ns}"
@@ -336,7 +340,7 @@ elif [[ "${_evmfs}" == "false" ]]; then
     _src="${_tarfile}::${_uri}"
   fi
 fi
-source=(
+source+=(
   "${_src}"
   "dirmngr"{"","@"}"."{"service","socket"}
   "gpg-agent"{"","@"}.{"service","socket"}
@@ -376,7 +380,7 @@ source=(
   # "0023-gpg-Verify-Text-mode-Signatures-over-binary-Literal-.patch"
   # "0024-gpg-Do-not-use-a-default-when-asking-for-another-out.patch"
 )
-sha256sums=(
+sha256sums+=(
   "${_sum}"
   '80a3a80f9f1f337da555a6838483e1baca44cde8a8a3d8c4ba7743626304b981'
   '8374255ce93a3c343019ab425963bcbc41982ea89e669d1ad1df0aa7be810de1'
@@ -420,16 +424,28 @@ sha256sums=(
 #   'af13f78ff240c00d9e61bd470ace03bc6926e1cf946016c8c4fa27706ed278babc0ec8a04c79b930d9047f62bd7cfcfeba3e7fd493da7476a318fc49ff0e54fe'
 #   '5e4fed3c54785fc0140a1cfe970c6ed6a61c0041961999a9777dfcb0050d45e2b9231b3e5e97e025cefe1461614b599bc7129eea931d1996f4849cd83f546abc'
 # )
-validpgpkeys=(
-  # Andre Heinecke (Release Signing Key)
-  '5B80C5754298F0CB55D8ED6ABCEF7E294B092E28'
-  # Werner Koch (dist signing 2020)
-  '6DAA6E64A76D2840571B4902528897B826403ADA'
-  # Niibe Yutaka (GnuPG Release Key)
-  'AC8E115BF73E2D8D47FA9908E98E9B2D19C6C8BD'
-  # GnuPG.com (Release Signing Key 2021)
-  '02F38DFF731FF97CB039A1DA549E695E905BA208'
-)
+if [[ "${_ns}" == "themartiancompany" ]]; then
+  validpgpkeys=(
+    # Truocolo
+    #   <truocolo@aol.com>
+    '97E989E6CF1D2C7F7A41FF9F95684DBE23D6A3E9'
+    'DD6732B02E6C88E9E27E2E0D5FC6652B9D9A6C01'
+    # Pellegrino Prevete (dvorak)
+    #   <dvorak@0x87003Bd6C074C713783df04f36517451fF34CBEf>
+    '12D8E3D7888F741E89F86EE0FEC8567A644F1D16'
+  )
+elif [[ "${_ns}" == "freepg" ]]; then
+  validpgpkeys=(
+    # Andre Heinecke (Release Signing Key)
+    '5B80C5754298F0CB55D8ED6ABCEF7E294B092E28'
+    # Werner Koch (dist signing 2020)
+    '6DAA6E64A76D2840571B4902528897B826403ADA'
+    # Niibe Yutaka (GnuPG Release Key)
+    'AC8E115BF73E2D8D47FA9908E98E9B2D19C6C8BD'
+    # GnuPG.com (Release Signing Key 2021)
+    '02F38DFF731FF97CB039A1DA549E695E905BA208'
+  )
+fi
 
 prepare() {
   local \
