@@ -123,17 +123,21 @@ _global_variables
 namespace="${1}"
 repo="${2}"
 tag="${3}"
-
 for _arg in "$@"; do
   if [[ "${_arg}" == "-h" ]]; then
     _usage \
       0
   fi
 done
-
 if (( "${#}" < 3 )); then
   _usage \
     1
+fi
+if (( 3 < "${#}" )); then
+  arch="${4}"
+fi
+if (( 4 < "${#}" )); then
+  pkgname="${5}"
 fi
 
 app_opts=(
