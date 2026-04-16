@@ -147,7 +147,7 @@ _2_5_18_commit="1b8362889a522bbcfeb80ef3af61218db216f62b"
 _2_5_18_freepg_commit="756502e158cc2742a956333997037f72ee5ff40f"
 _commit="${_2_5_18_freepg_commit}"
 _libassuan_pkgver="3.0.2"
-pkgrel=59
+pkgrel=60
 _pkgdesc=(
   'Complete and free implementation'
   'of the OpenPGP standard.'
@@ -449,7 +449,11 @@ fi
 
 prepare() {
   local \
+    _os \
     _src
+  _os="$(
+    uname \
+      -o)"
   if [[ "${_archive_format}" == "git" ]]; then
     mv \
       "${srcdir}/${_tarfile}" \
@@ -499,6 +503,10 @@ prepare() {
       '128, 160 p' \
     "COPYING.other" > \
     "Unicode-TOU.txt"
+  if [[ "${_os}" == "Android" ]]; then
+    termux-fix-shebang \
+      "./autogen.sh"
+  fi
   "./autogen.sh"
 }
 
