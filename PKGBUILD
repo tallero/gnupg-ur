@@ -147,7 +147,7 @@ _2_5_18_commit="1b8362889a522bbcfeb80ef3af61218db216f62b"
 _2_5_18_freepg_commit="756502e158cc2742a956333997037f72ee5ff40f"
 _commit="${_2_5_18_freepg_commit}"
 _libassuan_pkgver="3.0.2"
-pkgrel=72
+pkgrel=73
 _pkgdesc=(
   'Complete and free implementation'
   'of the OpenPGP standard.'
@@ -460,11 +460,25 @@ _android_fix() {
       "bash")"
   mapfile \
     -d \
-    $'\0' \
+      $'\0' \
     _bin_files < \
     <(grep \
         -rl \
         '#!/bin' \
+        "." |
+        tr \
+          '\n' \
+          '\0' || \
+      true)
+  mapfile \
+    -d \
+      $'\0' \
+    -O \
+      "${#_bin_files[@]}" \
+    _bin_files < \
+    <(grep \
+        -rl \
+        '#! /bin' \
         "." |
         tr \
           '\n' \
